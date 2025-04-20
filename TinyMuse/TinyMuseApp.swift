@@ -23,10 +23,15 @@ struct TinyMuseApp: App {
                 )
         }
         .windowResizability(.contentSize)
-        .commandsReplaced {
-            CommandMenu("File") {
+        .commands {
+            CommandGroup(replacing: .newItem) {
                 Button("Open...", action: open)
             }
+            
+            // Removes "Edit" menu
+            CommandGroup(replacing: .pasteboard) { }
+            CommandGroup(replacing: .undoRedo) { }
+            CommandGroup(replacing: .textEditing) { }
         }
     }
     
