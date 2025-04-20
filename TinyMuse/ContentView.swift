@@ -1,7 +1,24 @@
+import AVFAudio
 import SwiftUI
 
 struct ContentView: View {
-    @State private var progress: Double = 0
+    var fileURL: URL?
+    
+    private var player: AVAudioPlayer?
+
+    init(fileURL: URL?) {
+        self.fileURL = fileURL
+        if let url = fileURL {
+            self.player = try? AVAudioPlayer(contentsOf: url)
+        }
+    }
+
+    private var progress: Binding<Double> {
+        Binding(
+            get: { player == nil ? 0 : player!.currentTime / player!.duration },
+            set: { value in player?.currentTime = value * player!.duration }
+        )
+    }
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -11,9 +28,11 @@ struct ContentView: View {
                 .imageScale(.large)
                 .font(.title2)
             
-            Text("00:00")
-            
-            Slider(value: $progress)
+            let currentTime = player?.currentTime.description ?? "00:00"
+            let totalTime = player?.duration.description ?? "00:00"
+            Text("\(currentTime) / \(totalTime)")
+
+            Slider(value: progress)
         }
         .padding()
         .frame(
@@ -30,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(fileURL: nil)
 }
