@@ -6,6 +6,8 @@ struct TinyMuseApp: App {
     static let idealWindowWidth: CGFloat = 600
     static let windowHeight: CGFloat = 50
     
+    @State private var isOpenDialogOpen = false
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -25,8 +27,9 @@ struct TinyMuseApp: App {
         .windowResizability(.contentSize)
         .commands {
             CommandGroup(replacing: .newItem) {
-                Button("Open...", action: open)
+                Button("Open...", action: { isOpenDialogOpen = true })
                     .keyboardShortcut("o")
+                    .fileImporter(isPresented: $isOpenDialogOpen, allowedContentTypes: [.audio]) { result in }
             }
             
             // Removes "Edit" menu
@@ -34,9 +37,5 @@ struct TinyMuseApp: App {
             CommandGroup(replacing: .undoRedo) { }
             CommandGroup(replacing: .textEditing) { }
         }
-    }
-    
-    func open() {
-        
     }
 }
