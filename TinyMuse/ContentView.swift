@@ -1,21 +1,31 @@
-//
-//  ContentView.swift
-//  TinyMuse
-//
-//  Created by Nikita Utkin on 2025/04/20.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var progress: Double = 0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
+        HStack(alignment: .center, spacing: 16) {
+            Button("Play", systemImage: "play.fill", action: play)
+                .buttonStyle(.plain)
+                .labelStyle(.iconOnly)
                 .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+                .font(.title2)
+            
+            Text("00:00")
+            
+            Slider(value: $progress)
         }
         .padding()
+        .frame(
+            minWidth: TinyMuseApp.minWindowWidth,
+            idealWidth: TinyMuseApp.idealWindowWidth,
+            minHeight: TinyMuseApp.windowHeight,
+            maxHeight: TinyMuseApp.windowHeight
+        )
+    }
+    
+    func play() {
+        
     }
 }
 
