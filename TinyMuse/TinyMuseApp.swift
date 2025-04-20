@@ -1,3 +1,4 @@
+import AVFAudio
 import SwiftUI
 
 @main
@@ -7,6 +8,14 @@ struct TinyMuseApp: App {
     static let windowHeight: CGFloat = 50
     
     @State private var isOpenDialogOpen = false
+    @State private var currentFileURL: URL? = nil
+    @State private var fileOpenErrorMessage: String = ""
+    private var shouldDisplayFileOpenErrorAlert: Binding<Bool> {
+        Binding(
+            get: { fileOpenErrorMessage != "" },
+            set: { _ in fileOpenErrorMessage = "" }
+        )
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -29,7 +38,16 @@ struct TinyMuseApp: App {
             CommandGroup(replacing: .newItem) {
                 Button("Open...", action: { isOpenDialogOpen = true })
                     .keyboardShortcut("o")
-                    .fileImporter(isPresented: $isOpenDialogOpen, allowedContentTypes: [.audio]) { result in }
+                    .fileImporter(isPresented: $isOpenDialogOpen, allowedContentTypes: [.audio]) {
+                        result in
+                        switch result {
+                        case .success(let url):
+                            currentFileURL = url
+                        case .failure(let error):
+                            fileOpenErrorMessage = error.localizedDescription
+                        }
+                    }
+                    .alert("File open error", isPresented: shouldDisplayFileOpenErrorAlert, actions: {}, message: { Text(fileOpenErrorMessage) })
             }
             
             // Removes "Edit" menu
