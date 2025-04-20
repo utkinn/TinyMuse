@@ -26,6 +26,7 @@ struct TinyMuseApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {
                 Button("Open...", action: open)
+                    .keyboardShortcut("o")
             }
             
             // Removes "Edit" menu
