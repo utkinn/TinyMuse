@@ -10,14 +10,18 @@ class AudioPlayerModel: ObservableObject {
     private var timer: Timer?
     
     init(fileURL: URL?) {
-        if let url = fileURL {
+        openFile(url: fileURL)
+        startTimer()
+    }
+    
+    func openFile(url: URL?) {
+        if let url = url {
             do {
                 player = try AVAudioPlayer(contentsOf: url)
             } catch {
                 errorText = error.localizedDescription
             }
         }
-        startTimer()
     }
     
     private func startTimer() {

@@ -20,6 +20,7 @@ struct TinyMuseApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(fileURL: currentFileURL)
+                .id(currentFileURL)
                 .background(
                     GeometryReader { _ in
                         Color.clear

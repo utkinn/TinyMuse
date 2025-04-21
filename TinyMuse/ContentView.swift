@@ -2,51 +2,38 @@ import AVFAudio
 import SwiftUI
 
 struct ContentView: View {
-    var fileURL: URL?
-    
-    private var player: AVAudioPlayer?
-    @State private var errorText: String?
-    private var showError: Binding<Bool> {
-        Binding(
-            get: { errorText != nil },
-            set: { value in errorText = value ? errorText : nil }
-        )
-    }
-    @State private var isPlaying: Bool = false
+    @StateObject private var model: AudioPlayerModel = AudioPlayerModel(fileURL: nil)
     
     init(fileURL: URL?) {
-        self.fileURL = fileURL
-        if let url = fileURL {
-            do {
-                player = try AVAudioPlayer(contentsOf: url)
-            } catch let error {
-                errorText = error.localizedDescription
-            }
-        }
+        _model = StateObject(wrappedValue: AudioPlayerModel(fileURL: fileURL))
     }
     
-    private var progress: Binding<Double> {
+    private var showError: Binding<Bool> {
         Binding(
-            get: { player == nil ? 0 : player!.currentTime / player!.duration },
-            set: { value in player?.currentTime = value * player!.duration }
+            get: { model.errorText != nil },
+            set: { value in model.errorText = value ? model.errorText : nil }
         )
     }
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            Button("Play", systemImage: isPlaying ? "pause.fill" : "play.fill") {
-                isPlaying.toggle()
+            Button("Play", systemImage: model.isPlaying ? "pause.fill" : "play.fill") {
+                model.togglePlay()
             }
             .buttonStyle(.plain)
             .labelStyle(.iconOnly)
             .imageScale(.large)
             .font(.title2)
             
-            let currentTime = formatDuration(seconds: player?.currentTime)
-            let totalTime = formatDuration(seconds: player?.duration)
+            let currentTime = formatDuration(seconds: model.currentTime())
+            let totalTime = formatDuration(seconds: model.totalTime())
             Text("\(currentTime) / \(totalTime)")
             
-            Slider(value: progress)
+            Slider(value: $model.progress, onEditingChanged: { editing in
+                if !editing {
+                    model.setProgress(model.progress)
+                }
+            })
         }
         .padding()
         .frame(
@@ -59,22 +46,14 @@ struct ContentView: View {
             "Error",
             isPresented: showError,
             actions: {},
-            message: { Text(errorText ?? "") }
+            message: { Text(model.errorText ?? "") }
         )
-        .onChange(of: isPlaying) {
-            old, new in
-            if new {
-                player?.play()
-            } else {
-                player?.pause()
-            }
-        }
     }
 }
 
 func formatDuration(seconds: TimeInterval?) -> String {
     guard let seconds = seconds else { return "--:--" }
-
+    
     let minutes = seconds.rounded(.down) / 60
     let secondsPart = seconds.truncatingRemainder(dividingBy: 60)
     return String(format: "%02d:%02d", Int(minutes), Int(secondsPart))
