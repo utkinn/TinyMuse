@@ -28,6 +28,7 @@ struct ContentView: View {
             let currentTime = formatDuration(seconds: model.currentTime())
             let totalTime = formatDuration(seconds: model.totalTime())
             Text("\(currentTime) / \(totalTime)")
+                .fontDesign(.monospaced)
             
             Slider(value: $model.progress, onEditingChanged: { editing in
                 if !editing {
