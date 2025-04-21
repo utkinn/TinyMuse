@@ -42,8 +42,8 @@ struct ContentView: View {
             .imageScale(.large)
             .font(.title2)
             
-            let currentTime = player?.currentTime.description ?? "00:00"
-            let totalTime = player?.duration.description ?? "00:00"
+            let currentTime = formatDuration(seconds: player?.currentTime)
+            let totalTime = formatDuration(seconds: player?.duration)
             Text("\(currentTime) / \(totalTime)")
             
             Slider(value: progress)
@@ -70,6 +70,14 @@ struct ContentView: View {
             }
         }
     }
+}
+
+func formatDuration(seconds: TimeInterval?) -> String {
+    guard let seconds = seconds else { return "--:--" }
+
+    let minutes = seconds.rounded(.down) / 60
+    let secondsPart = seconds.truncatingRemainder(dividingBy: 60)
+    return String(format: "%02d:%02d", Int(minutes), Int(secondsPart))
 }
 
 #Preview {
