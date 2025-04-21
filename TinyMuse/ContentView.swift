@@ -18,7 +18,7 @@ struct ContentView: View {
         self.fileURL = fileURL
         if let url = fileURL {
             do {
-                self.player = try AVAudioPlayer(contentsOf: url)
+                player = try AVAudioPlayer(contentsOf: url)
             } catch let error {
                 errorText = error.localizedDescription
             }
@@ -64,9 +64,9 @@ struct ContentView: View {
         .onChange(of: isPlaying) {
             old, new in
             if new {
-                self.player?.play()
+                player?.play()
             } else {
-                self.player?.pause()
+                player?.pause()
             }
         }
     }
