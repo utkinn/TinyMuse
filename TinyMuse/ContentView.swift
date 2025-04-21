@@ -12,6 +12,7 @@ struct ContentView: View {
             set: { value in errorText = value ? errorText : nil }
         )
     }
+    @State private var isPlaying: Bool = false
     
     init(fileURL: URL?) {
         self.fileURL = fileURL
@@ -33,11 +34,13 @@ struct ContentView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            Button("Play", systemImage: "play.fill", action: play)
-                .buttonStyle(.plain)
-                .labelStyle(.iconOnly)
-                .imageScale(.large)
-                .font(.title2)
+            Button("Play", systemImage: isPlaying ? "pause.fill" : "play.fill") {
+                isPlaying.toggle()
+            }
+            .buttonStyle(.plain)
+            .labelStyle(.iconOnly)
+            .imageScale(.large)
+            .font(.title2)
             
             let currentTime = player?.currentTime.description ?? "00:00"
             let totalTime = player?.duration.description ?? "00:00"
@@ -58,10 +61,14 @@ struct ContentView: View {
             actions: {},
             message: { Text(errorText ?? "") }
         )
-    }
-    
-    func play() {
-        
+        .onChange(of: isPlaying) {
+            old, new in
+            if new {
+                self.player?.play()
+            } else {
+                self.player?.pause()
+            }
+        }
     }
 }
 
