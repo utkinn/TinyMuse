@@ -14,6 +14,9 @@ class AudioPlayerModel: ObservableObject {
         startTimer()
     }
     
+    var isFileOpened: Bool { player != nil }
+    var audioName: String? { player?.url?.lastPathComponent }
+    
     func openFile(url: URL?) {
         if let url = url {
             do {

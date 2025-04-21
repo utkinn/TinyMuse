@@ -15,6 +15,8 @@ struct ContentView: View {
         )
     }
     
+    private var windowTitle: String { model.audioName ?? "TinyMuse" }
+    
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             Button("Play", systemImage: model.isPlaying ? "pause.fill" : "play.fill") {
@@ -49,6 +51,7 @@ struct ContentView: View {
             actions: {},
             message: { Text(model.errorText ?? "") }
         )
+        .navigationTitle(windowTitle)
     }
 }
 
