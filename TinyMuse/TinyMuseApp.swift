@@ -42,7 +42,14 @@ struct TinyMuseApp: App {
                         result in
                         switch result {
                         case .success(let url):
+                            if url != currentFileURL {
+                                currentFileURL?.stopAccessingSecurityScopedResource()
+                            }
                             currentFileURL = url
+                            let accessStartSuccess = url.startAccessingSecurityScopedResource()
+                            if !accessStartSuccess {
+                                fileOpenErrorMessage = "Failed to acquire access to the file."
+                            }
                         case .failure(let error):
                             fileOpenErrorMessage = error.localizedDescription
                         }
