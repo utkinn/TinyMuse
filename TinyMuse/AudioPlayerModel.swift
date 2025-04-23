@@ -7,6 +7,8 @@ class AudioPlayerModel: ObservableObject {
     @Published var errorText: String?
     
     private var player: AVAudioPlayer?
+    private lazy var audioPlayerObserver: AudioPlayerObserver = AudioPlayerObserver(owner: self)
+    
     private var timer: Timer?
     
     init(fileURL: URL?) {
@@ -21,6 +23,7 @@ class AudioPlayerModel: ObservableObject {
         if let url = url {
             do {
                 player = try AVAudioPlayer(contentsOf: url)
+                player?.delegate = audioPlayerObserver
             } catch {
                 errorText = error.localizedDescription
             }
@@ -57,5 +60,17 @@ class AudioPlayerModel: ObservableObject {
     
     func totalTime() -> TimeInterval? {
         player?.duration
+    }
+    
+    class AudioPlayerObserver: NSObject, AVAudioPlayerDelegate {
+        private weak var owner: AudioPlayerModel?
+        
+        init(owner: AudioPlayerModel) {
+            self.owner = owner
+        }
+        
+        func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+            owner?.isPlaying = false
+        }
     }
 }
