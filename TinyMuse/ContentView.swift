@@ -26,6 +26,7 @@ struct ContentView: View {
             .labelStyle(.iconOnly)
             .imageScale(.large)
             .font(.title2)
+            .frame(width: 24)
             
             let currentTime = formatDuration(seconds: model.currentTime())
             let totalTime = formatDuration(seconds: model.totalTime())
