@@ -21,6 +21,11 @@ class AudioPlayerModel: ObservableObject {
     
     func openFile(url: URL?) {
         if let url = url {
+            if !url.startAccessingSecurityScopedResource() {
+                errorText = "Can't start accessing the file security scoped resource."
+                return
+            }
+
             do {
                 player = try AVAudioPlayer(contentsOf: url)
                 player?.delegate = audioPlayerObserver
@@ -28,6 +33,10 @@ class AudioPlayerModel: ObservableObject {
                 errorText = error.localizedDescription
             }
         }
+    }
+    
+    deinit {
+        player?.url?.stopAccessingSecurityScopedResource()
     }
     
     private func startTimer() {

@@ -8,8 +8,11 @@ struct TinyMuseApp: App {
     static let windowHeight: CGFloat = 50
     
     @State private var isOpenDialogOpen = false
-    @State private var currentFileURL: URL? = nil
     @State private var fileOpenErrorMessage: String = ""
+    
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismiss
+    
     private var shouldDisplayFileOpenErrorAlert: Binding<Bool> {
         Binding(
             get: { fileOpenErrorMessage != "" },
@@ -18,9 +21,9 @@ struct TinyMuseApp: App {
     }
     
     var body: some Scene {
-        WindowGroup {
-            ContentView(fileURL: currentFileURL)
-                .id(currentFileURL)
+        WindowGroup(for: URL.self) { $fileUrl in
+            ContentView(fileURL: fileUrl)
+                .id(fileUrl)
                 .background(
                     GeometryReader { _ in
                         Color.clear
@@ -33,6 +36,9 @@ struct TinyMuseApp: App {
                             }
                     }
                 )
+                .onDisappear {
+                    fileUrl?.stopAccessingSecurityScopedResource()
+                }
         }
         .windowResizability(.contentSize)
         .commands {
@@ -43,14 +49,7 @@ struct TinyMuseApp: App {
                         result in
                         switch result {
                         case .success(let url):
-                            if url != currentFileURL {
-                                currentFileURL?.stopAccessingSecurityScopedResource()
-                            }
-                            currentFileURL = url
-                            let accessStartSuccess = url.startAccessingSecurityScopedResource()
-                            if !accessStartSuccess {
-                                fileOpenErrorMessage = "Failed to acquire access to the file."
-                            }
+                            openWindow(value: url)
                         case .failure(let error):
                             fileOpenErrorMessage = error.localizedDescription
                         }
