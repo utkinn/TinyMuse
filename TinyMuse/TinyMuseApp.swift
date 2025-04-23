@@ -4,7 +4,7 @@ import SwiftUI
 @main
 struct TinyMuseApp: App {
     static let minWindowWidth: CGFloat = 200
-    static let idealWindowWidth: CGFloat = 600
+    static let idealWindowWidth: CGFloat = 400
     static let windowHeight: CGFloat = 50
     
     @State private var isOpenDialogOpen = false
