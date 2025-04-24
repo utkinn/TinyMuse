@@ -2,10 +2,13 @@ import AVFAudio
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var model: AudioPlayerModel = AudioPlayerModel(fileURL: nil)
+    var fileURL: URL?
+    
+    @State private var model: AudioPlayerModel
     
     init(fileURL: URL?) {
-        _model = StateObject(wrappedValue: AudioPlayerModel(fileURL: fileURL))
+        self.fileURL = fileURL
+        model = AudioPlayerModel(fileURL: fileURL)
     }
     
     private var showError: Binding<Bool> {

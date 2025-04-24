@@ -1,13 +1,14 @@
 import Foundation
 import AVFAudio
 
-class AudioPlayerModel: ObservableObject {
-    @Published var isPlaying: Bool = false
-    @Published var progress: Double = 0.0
-    @Published var errorText: String?
+@Observable
+class AudioPlayerModel {
+    var isPlaying: Bool = false
+    var progress: Double = 0.0
+    var errorText: String?
     
     private var player: AVAudioPlayer?
-    private lazy var audioPlayerObserver: AudioPlayerObserver = AudioPlayerObserver(owner: self)
+    @ObservationIgnored private lazy var audioPlayerObserver: AudioPlayerObserver = AudioPlayerObserver(owner: self)
     
     private var timer: Timer?
     
