@@ -62,6 +62,13 @@ struct PlayerView: View {
                 model.play()
             }
         }
+        .onAppear {
+            if let window = NSApplication.shared.windows.first {
+                window.minSize.width = TinyMuseApp.minWindowWidth
+                window.minSize.height = TinyMuseApp.windowHeight
+                window.maxSize.height = TinyMuseApp.windowHeight
+            }
+        }
     }
 }
 

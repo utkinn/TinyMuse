@@ -24,18 +24,6 @@ struct TinyMuseApp: App {
             if let fileUrl = fileUrl {
                 PlayerView(fileURL: fileUrl)
                     .id(fileUrl)
-                    .background(
-                        GeometryReader { _ in
-                            Color.clear
-                                .onAppear {
-                                    if let window = NSApplication.shared.windows.first {
-                                        window.minSize.width = TinyMuseApp.minWindowWidth
-                                        window.minSize.height = TinyMuseApp.windowHeight
-                                        window.maxSize.height = TinyMuseApp.windowHeight
-                                    }
-                                }
-                        }
-                    )
                     .onDisappear {
                         fileUrl.stopAccessingSecurityScopedResource()
                     }
