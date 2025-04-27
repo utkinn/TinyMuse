@@ -1,7 +1,7 @@
 import AVFAudio
 import SwiftUI
 
-struct ContentView: View {
+struct PlayerView: View {
     var fileURL: URL?
     
     @State private var model: AudioPlayerModel
@@ -74,5 +74,5 @@ func formatDuration(seconds: TimeInterval?) -> String {
 }
 
 #Preview {
-    ContentView(fileURL: nil)
+    PlayerView(fileURL: nil)
 }

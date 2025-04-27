@@ -22,7 +22,7 @@ struct TinyMuseApp: App {
     var body: some Scene {
         WindowGroup(for: URL.self) { $fileUrl in
             if let fileUrl = fileUrl {
-                ContentView(fileURL: fileUrl)
+                PlayerView(fileURL: fileUrl)
                     .id(fileUrl)
                     .background(
                         GeometryReader { _ in
