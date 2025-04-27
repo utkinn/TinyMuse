@@ -51,11 +51,6 @@ struct TinyMuseApp: App {
         }
         .windowResizability(.contentSize)
         .commands {
-            CommandGroup(replacing: .appSettings) {
-                Button("Settings...", action: { openWindow(id: "settings") })
-                    .keyboardShortcut(",")
-            }
-            
             CommandGroup(replacing: .newItem) {
                 Button("Open...", action: { isOpenDialogOpen = true })
                     .keyboardShortcut("o")
@@ -77,7 +72,7 @@ struct TinyMuseApp: App {
             CommandGroup(replacing: .textEditing) { }
         }
         
-        WindowGroup(id: "settings") {
+        Settings {
             SettingsView(playOnOpen: $playOnOpen)
         }
         .windowResizability(.contentSize)
