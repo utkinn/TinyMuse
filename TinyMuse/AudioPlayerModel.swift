@@ -1,5 +1,6 @@
 import Foundation
 import AVFAudio
+import SwiftUI
 
 @Observable
 class AudioPlayerModel {
@@ -51,6 +52,12 @@ class AudioPlayerModel {
             guard let player = self.player else { return }
             self.progress = player.duration == 0 ? 0 : player.currentTime / player.duration
         }
+    }
+    
+    func play() {
+        guard let player = player else { return }
+        isPlaying = true
+        player.play()
     }
     
     func togglePlay() {

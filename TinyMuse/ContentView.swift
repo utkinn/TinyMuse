@@ -5,6 +5,7 @@ struct ContentView: View {
     var fileURL: URL?
     
     @State private var model: AudioPlayerModel
+    @AppStorage("playOnOpen") private var playOnOpen: Bool = true
     
     init(fileURL: URL?) {
         self.fileURL = fileURL
@@ -56,6 +57,11 @@ struct ContentView: View {
             message: { Text(model.errorText ?? "") }
         )
         .navigationTitle(windowTitle)
+        .task {
+            if (playOnOpen) {
+                model.play()
+            }
+        }
     }
 }
 
