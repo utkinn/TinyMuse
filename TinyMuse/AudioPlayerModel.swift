@@ -22,14 +22,20 @@ class AudioPlayerModel {
     
     func openFile(url: URL?) {
         if let url = url {
-            if !url.startAccessingSecurityScopedResource() {
+            guard url.startAccessingSecurityScopedResource() else {
                 errorText = "Can't start accessing the file security scoped resource."
                 return
             }
 
             do {
                 player = try AVAudioPlayer(contentsOf: url)
-                player?.delegate = audioPlayerObserver
+                if let player = player {
+                    player.delegate = audioPlayerObserver
+                    guard player.prepareToPlay() else {
+                        errorText = "Can't prepare to play the file."
+                        return
+                    }
+                }
             } catch {
                 errorText = error.localizedDescription
             }
