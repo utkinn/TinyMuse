@@ -41,6 +41,10 @@ struct TinyMuseApp: App {
                     }
             } else {
                 EmptyView()
+                    .onOpenURL {
+                        isOpenDialogOpen = false
+                        openWindow(value: $0)
+                    }
             }
         }
         .windowResizability(.contentSize)
