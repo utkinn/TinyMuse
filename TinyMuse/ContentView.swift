@@ -3,12 +3,13 @@ import SwiftUI
 
 struct ContentView: View {
     var fileURL: URL?
+    var playOnOpen: Bool
     
     @State private var model: AudioPlayerModel
-    @AppStorage("playOnOpen") private var playOnOpen: Bool = true
     
-    init(fileURL: URL?) {
+    init(fileURL: URL?, playOnOpen: Bool) {
         self.fileURL = fileURL
+        self.playOnOpen = playOnOpen
         model = AudioPlayerModel(fileURL: fileURL)
     }
     
@@ -74,5 +75,5 @@ func formatDuration(seconds: TimeInterval?) -> String {
 }
 
 #Preview {
-    ContentView(fileURL: nil)
+    ContentView(fileURL: nil, playOnOpen: false)
 }
