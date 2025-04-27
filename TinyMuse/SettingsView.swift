@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("playOnOpen") private var playOnOpen: Bool = true
+    @AppStorage(SettingsKey.playOnOpen) private var playOnOpen: Bool = true
     
     var body: some View {
         HStack {

@@ -5,7 +5,7 @@ struct ContentView: View {
     var fileURL: URL?
     
     @State private var model: AudioPlayerModel
-    @AppStorage("playOnOpen") private var playOnOpen: Bool = true
+    @AppStorage(SettingsKey.playOnOpen) private var playOnOpen: Bool = true
     
     init(fileURL: URL?) {
         self.fileURL = fileURL
