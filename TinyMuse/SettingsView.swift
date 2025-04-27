@@ -9,6 +9,7 @@ struct SettingsView: View {
                 Text("Start playing after opening a file")
             }
         }
+        .navigationTitle("Settings")
         .padding()
         .windowResizeBehavior(.disabled)
     }
