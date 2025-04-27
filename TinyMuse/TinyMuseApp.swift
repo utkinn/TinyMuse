@@ -12,8 +12,6 @@ struct TinyMuseApp: App {
     
     @Environment(\.openWindow) private var openWindow
     
-    @AppStorage("playOnOpen") private var playOnOpen: Bool = true
-    
     private var shouldDisplayFileOpenErrorAlert: Binding<Bool> {
         Binding(
             get: { fileOpenErrorMessage != "" },
@@ -24,7 +22,7 @@ struct TinyMuseApp: App {
     var body: some Scene {
         WindowGroup(for: URL.self) { $fileUrl in
             if let fileUrl = fileUrl {
-                ContentView(fileURL: fileUrl, playOnOpen: playOnOpen)
+                ContentView(fileURL: fileUrl)
                     .id(fileUrl)
                     .background(
                         GeometryReader { _ in
@@ -73,7 +71,7 @@ struct TinyMuseApp: App {
         }
         
         Settings {
-            SettingsView(playOnOpen: $playOnOpen)
+            SettingsView()
         }
         .windowResizability(.contentSize)
     }
