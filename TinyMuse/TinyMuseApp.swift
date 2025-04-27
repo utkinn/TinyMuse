@@ -80,5 +80,6 @@ struct TinyMuseApp: App {
         WindowGroup(id: "settings") {
             SettingsView(playOnOpen: $playOnOpen)
         }
+        .windowResizability(.contentSize)
     }
 }

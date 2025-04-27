@@ -10,6 +10,7 @@ struct SettingsView: View {
             }
         }
         .padding()
+        .windowResizeBehavior(.disabled)
     }
 }
 
