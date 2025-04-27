@@ -7,7 +7,7 @@ struct TinyMuseApp: App {
     static let idealWindowWidth: CGFloat = 400
     static let windowHeight: CGFloat = 50
     
-    @State private var isOpenDialogOpen = false
+    @State private var isOpenDialogOpen = true
     @State private var fileOpenErrorMessage: String = ""
     
     @Environment(\.openWindow) private var openWindow
