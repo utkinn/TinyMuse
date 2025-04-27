@@ -11,7 +11,6 @@ struct TinyMuseApp: App {
     @State private var fileOpenErrorMessage: String = ""
     
     @Environment(\.openWindow) private var openWindow
-    @Environment(\.dismiss) private var dismiss
     
     private var shouldDisplayFileOpenErrorAlert: Binding<Bool> {
         Binding(
@@ -22,23 +21,27 @@ struct TinyMuseApp: App {
     
     var body: some Scene {
         WindowGroup(for: URL.self) { $fileUrl in
-            ContentView(fileURL: fileUrl)
-                .id(fileUrl)
-                .background(
-                    GeometryReader { _ in
-                        Color.clear
-                            .onAppear {
-                                if let window = NSApplication.shared.windows.first {
-                                    window.minSize.width = TinyMuseApp.minWindowWidth
-                                    window.minSize.height = TinyMuseApp.windowHeight
-                                    window.maxSize.height = TinyMuseApp.windowHeight
+            if let fileUrl = fileUrl {
+                ContentView(fileURL: fileUrl)
+                    .id(fileUrl)
+                    .background(
+                        GeometryReader { _ in
+                            Color.clear
+                                .onAppear {
+                                    if let window = NSApplication.shared.windows.first {
+                                        window.minSize.width = TinyMuseApp.minWindowWidth
+                                        window.minSize.height = TinyMuseApp.windowHeight
+                                        window.maxSize.height = TinyMuseApp.windowHeight
+                                    }
                                 }
-                            }
+                        }
+                    )
+                    .onDisappear {
+                        fileUrl.stopAccessingSecurityScopedResource()
                     }
-                )
-                .onDisappear {
-                    fileUrl?.stopAccessingSecurityScopedResource()
-                }
+            } else {
+                EmptyView()
+            }
         }
         .windowResizability(.contentSize)
         .commands {
