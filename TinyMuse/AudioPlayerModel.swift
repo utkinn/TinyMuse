@@ -11,7 +11,7 @@ class AudioPlayerModel {
     private var player: AVAudioPlayer?
     @ObservationIgnored private lazy var audioPlayerObserver: AudioPlayerObserver = AudioPlayerObserver(owner: self)
     
-    private var timer: Timer?
+    @ObservationIgnored private var timer: Timer?
     
     init(fileURL: URL?) {
         openFile(url: fileURL)
@@ -44,11 +44,14 @@ class AudioPlayerModel {
     }
     
     deinit {
+        timer?.invalidate()
+        player?.stop()
         player?.url?.stopAccessingSecurityScopedResource()
     }
     
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            guard let self else { return }
             guard let player = self.player else { return }
             self.progress = player.duration == 0 ? 0 : player.currentTime / player.duration
         }
