@@ -5,7 +5,7 @@ struct PlayerView: View {
     var fileURL: URL?
     
     @State private var model: AudioPlayerModel
-    @AppStorage(SettingsKey.playOnOpen) private var playOnOpen: Bool = true
+    @AppStorage(SettingsKey.playOnOpen) private var playOnOpen: Bool = SettingsKey.playOnOpenDefault
     
     init(fileURL: URL?) {
         self.fileURL = fileURL
