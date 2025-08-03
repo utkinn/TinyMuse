@@ -11,7 +11,8 @@ struct TinyMuseApp: App {
     
     @State private var openedURLs: [URL] = []
     
-    @AppStorage(SettingsKey.singleWindow) private var singleWindow: Bool = SettingsKey.singleWindowDefault
+    @AppStorage(SettingsKey.singleWindow) private var singleWindow = SettingsKey.singleWindowDefault
+    @AppStorage(SettingsKey.quitAfterLastClosedWindow) private var quitAfterLastClosedWindow = SettingsKey.quitAfterLastClosedWindowDefault
     
     private var shouldDisplayFileOpenErrorAlert: Binding<Bool> {
         Binding(
@@ -36,6 +37,10 @@ struct TinyMuseApp: App {
                     .onDisappear {
                         openedURLs.removeAll { $0 == fileUrl }
                         fileUrl.stopAccessingSecurityScopedResource()
+                        
+                        if quitAfterLastClosedWindow && openedURLs.isEmpty {
+                            NSApplication.shared.terminate(nil)
+                        }
                     }
             } else {
                 EmptyView()
