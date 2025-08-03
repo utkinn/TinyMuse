@@ -1,0 +1,192 @@
+{
+  "fill" : {
+    "automatic-gradient" : "display-p3:0.52678,0.31536,0.74525,1.00000"
+  },
+  "groups" : [
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "blend-mode-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : "normal"
+            }
+          ],
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.52678,0.31536,0.74525,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "Right glare.svg",
+          "name" : "Right glare",
+          "position" : {
+            "scale" : 1.61,
+            "translation-in-points" : [
+              -209.5625,
+              164.0625
+            ]
+          }
+        },
+        {
+          "blend-mode-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : "normal"
+            }
+          ],
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.52678,0.31536,0.74525,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "Left glare.svg",
+          "name" : "Left glare",
+          "position" : {
+            "scale" : 1.61,
+            "translation-in-points" : [
+              211.296875,
+              99.515625
+            ]
+          }
+        }
+      ],
+      "lighting" : "combined",
+      "name" : "Glare",
+      "position" : {
+        "scale" : 1,
+        "translation-in-points" : [
+          5.6927237306402985,
+          -9.428880928642567
+        ]
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blend-mode-specializations" : [
+        {
+          "value" : "normal"
+        },
+        {
+          "appearance" : "dark",
+          "value" : "multiply"
+        }
+      ],
+      "blur-material" : 0.5,
+      "hidden" : false,
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "automatic-gradient" : "display-p3:0.30244,0.09972,0.39407,1.00000"
+          },
+          "image-name" : "Right eye.svg",
+          "name" : "Right eye",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              184.5859375,
+              121.6171875
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "automatic-gradient" : "display-p3:0.30244,0.09972,0.39407,1.00000"
+          },
+          "image-name" : "Left eye.svg",
+          "name" : "Left eye",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -230.2890625,
+              184.96875
+            ]
+          }
+        }
+      ],
+      "lighting" : "combined",
+      "name" : "Face",
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "extended-gray:0.75000,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.52678,0.31536,0.74525,1.00000"
+              }
+            }
+          ],
+          "image-name" : "Smile — New.svg",
+          "name" : "Smile — New",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              6.426429307408501,
+              380.6101557319115
+            ]
+          }
+        },
+        {
+          "glass" : true,
+          "image-name" : "Note.svg",
+          "name" : "Note",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -25.6875,
+              -54.40625
+            ]
+          }
+        }
+      ],
+      "name" : "Base",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}
