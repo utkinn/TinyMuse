@@ -2,6 +2,10 @@ import AVFAudio
 import SwiftUI
 
 struct PlayerView: View {
+    private static let minWindowWidth: CGFloat = 200
+    private static let idealWindowWidth: CGFloat = 400
+    private static let windowHeight: CGFloat = 50
+    
     var fileURL: URL?
     
     @State private var model: AudioPlayerModel
@@ -45,10 +49,10 @@ struct PlayerView: View {
         }
         .padding()
         .frame(
-            minWidth: TinyMuseApp.minWindowWidth,
-            idealWidth: TinyMuseApp.idealWindowWidth,
-            minHeight: TinyMuseApp.windowHeight,
-            maxHeight: TinyMuseApp.windowHeight
+            minWidth: PlayerView.minWindowWidth,
+            idealWidth: PlayerView.idealWindowWidth,
+            minHeight: PlayerView.windowHeight,
+            maxHeight: PlayerView.windowHeight
         )
         .alert(
             "Error",
@@ -64,9 +68,9 @@ struct PlayerView: View {
         }
         .onAppear {
             if let window = NSApplication.shared.windows.first {
-                window.minSize.width = TinyMuseApp.minWindowWidth
-                window.minSize.height = TinyMuseApp.windowHeight
-                window.maxSize.height = TinyMuseApp.windowHeight
+                window.minSize.width = PlayerView.minWindowWidth
+                window.minSize.height = PlayerView.windowHeight
+                window.maxSize.height = PlayerView.windowHeight
             }
         }
     }

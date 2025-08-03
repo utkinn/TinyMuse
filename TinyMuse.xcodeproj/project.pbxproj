@@ -40,6 +40,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1156F8652E3CBC0200D85400 /* Test Assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Test Assets";
+			sourceTree = "<group>";
+		};
 		11D2CCB62DB5141E009E57E0 /* TinyMuse */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -88,6 +93,7 @@
 		11D2CCAB2DB5141E009E57E0 = {
 			isa = PBXGroup;
 			children = (
+				1156F8652E3CBC0200D85400 /* Test Assets */,
 				11D2CCB62DB5141E009E57E0 /* TinyMuse */,
 				11D2CCC52DB51420009E57E0 /* TinyMuseTests */,
 				11D2CCCF2DB51420009E57E0 /* TinyMuseUITests */,
@@ -167,6 +173,7 @@
 				11D2CCCE2DB51420009E57E0 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				1156F8652E3CBC0200D85400 /* Test Assets */,
 				11D2CCCF2DB51420009E57E0 /* TinyMuseUITests */,
 			);
 			name = TinyMuseUITests;

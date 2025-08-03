@@ -3,14 +3,15 @@ import SwiftUI
 
 @main
 struct TinyMuseApp: App {
-    static let minWindowWidth: CGFloat = 200
-    static let idealWindowWidth: CGFloat = 400
-    static let windowHeight: CGFloat = 50
-    
     @State private var isOpenDialogOpen = true
     @State private var fileOpenErrorMessage: String = ""
     
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
+    
+    @State private var openedURLs: [URL] = []
+    
+    @AppStorage(SettingsKey.singleWindow) private var singleWindow: Bool = SettingsKey.singleWindowDefault
     
     private var shouldDisplayFileOpenErrorAlert: Binding<Bool> {
         Binding(
@@ -24,13 +25,23 @@ struct TinyMuseApp: App {
             if let fileUrl = fileUrl {
                 PlayerView(fileURL: fileUrl)
                     .id(fileUrl)
+                    .onAppear {
+                        if singleWindow {
+                            for url in openedURLs {
+                                dismissWindow(value: url)
+                            }
+                        }
+                        openedURLs.append(fileUrl)
+                    }
                     .onDisappear {
+                        openedURLs.removeAll { $0 == fileUrl }
                         fileUrl.stopAccessingSecurityScopedResource()
                     }
             } else {
                 EmptyView()
                     .onOpenURL {
                         isOpenDialogOpen = false
+
                         openWindow(value: $0)
                     }
             }
