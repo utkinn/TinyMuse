@@ -82,6 +82,7 @@ struct PlayButton: View {
         .imageScale(.large)
         .font(.title2)
         .frame(width: 24)
+        .keyboardShortcut(.space, modifiers: [])
     }
 }
 
