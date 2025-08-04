@@ -4,6 +4,7 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.playOnOpen) private var playOnOpen = SettingsKey.playOnOpenDefault
     @AppStorage(SettingsKey.singleWindow) private var singleWindow = SettingsKey.singleWindowDefault
     @AppStorage(SettingsKey.quitAfterLastClosedWindow) private var quitAfterLastClosedWindow = SettingsKey.quitAfterLastClosedWindowDefault
+    @AppStorage(SettingsKey.playbackBarStyle) private var playbackBarStyle = SettingsKey.playbackBarStyleDefault
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -14,6 +15,13 @@ struct SettingsView: View {
             }
             Toggle(isOn: $quitAfterLastClosedWindow) {
                 Text("Quit after last closed window")
+            }
+
+            Picker("Playback bar style", selection: $playbackBarStyle) {
+                ForEach(PlaybackBarStyle.allCases) { style in
+                    Text("\(style.name) – \(style.description)")
+                        .tag(style)
+                }
             }
         }
         .navigationTitle("Settings")

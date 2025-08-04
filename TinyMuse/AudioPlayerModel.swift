@@ -1,5 +1,6 @@
 import Foundation
 import AVFAudio
+import AVFoundation
 import SwiftUI
 
 @Observable
@@ -7,15 +8,24 @@ class AudioPlayerModel {
     var isPlaying: Bool = false
     var progress: Double = 0.0
     var errorText: String?
+    var waveformSamples: [Float] = []
     
+    private var fileURL: URL?
     private var player: AVAudioPlayer?
     @ObservationIgnored private lazy var audioPlayerObserver: AudioPlayerObserver = AudioPlayerObserver(owner: self)
     
     @ObservationIgnored private var timer: Timer?
     
     init(fileURL: URL?) {
+        self.fileURL = fileURL
         openFile(url: fileURL)
         startTimer()
+    }
+    
+    func load() async {
+        if let url = fileURL {
+            waveformSamples = (try? await loadWaveformSamples(from: url, samplesCount: 1000)) ?? []
+        }
     }
     
     var isFileOpened: Bool { player != nil }
@@ -54,6 +64,8 @@ class AudioPlayerModel {
             guard let self else { return }
             guard let player = self.player else { return }
             self.progress = player.duration == 0 ? 0 : player.currentTime / player.duration
+            self.currentTime = player.currentTime
+            self.totalTime = player.duration
         }
     }
     
@@ -80,13 +92,8 @@ class AudioPlayerModel {
         self.progress = newValue
     }
     
-    func currentTime() -> TimeInterval? {
-        player?.currentTime
-    }
-    
-    func totalTime() -> TimeInterval? {
-        player?.duration
-    }
+    var currentTime: TimeInterval?
+    var totalTime: TimeInterval?
     
     class AudioPlayerObserver: NSObject, AVAudioPlayerDelegate {
         private weak var owner: AudioPlayerModel?
@@ -98,5 +105,53 @@ class AudioPlayerModel {
         func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
             owner?.isPlaying = false
         }
+    }
+    
+    private func loadWaveformSamples(from url: URL, samplesCount: Int) async throws -> [Float]? {
+        let asset = AVURLAsset(url: url)
+        guard let track = try await asset.loadTracks(withMediaType: .audio).first else { return nil }
+        
+        let readerSettings: [String: Any] = [
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
+            AVLinearPCMIsBigEndianKey: false,
+            AVLinearPCMIsFloatKey: false,
+            AVLinearPCMBitDepthKey: 16
+        ]
+        
+        let readerOutput = AVAssetReaderTrackOutput(track: track, outputSettings: readerSettings)
+        
+        guard let reader = try? AVAssetReader(asset: asset) else { return nil }
+        reader.add(readerOutput)
+        
+        reader.startReading()
+        
+        var waveformSamples = [Float]()
+        
+        while let sampleBuffer = readerOutput.copyNextSampleBuffer(),
+              let blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer) {
+            
+            let length = CMBlockBufferGetDataLength(blockBuffer)
+            var data = Data(count: length)
+            data.withUnsafeMutableBytes { buffer in
+                CMBlockBufferCopyDataBytes(blockBuffer, atOffset: 0, dataLength: length, destination: buffer.baseAddress!)
+            }
+            
+            let samples = data.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) in
+                let ptr = buffer.bindMemory(to: Int16.self)
+                return Array(ptr)
+            }
+            
+            // Downsample: Group samples into chunks and take the RMS (root mean square) or max amplitude
+            let samplesPerBin = max(1, samples.count / samplesCount)
+            for i in stride(from: 0, to: samples.count, by: samplesPerBin) {
+                let chunk = samples[i..<min(i+samplesPerBin, samples.count)]
+                let maxAmp = chunk.map { abs(Float($0)) }.max() ?? 0
+                waveformSamples.append(maxAmp / Float(Int16.max))  // Normalize to 0...1
+            }
+            
+            CMSampleBufferInvalidate(sampleBuffer)
+        }
+        
+        return waveformSamples
     }
 }

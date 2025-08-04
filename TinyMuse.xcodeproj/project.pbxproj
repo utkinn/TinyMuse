@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1101816B2E3F64DB00A4457B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1101816A2E3F64DB00A4457B /* AVFoundation.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		11D2CCC32DB51420009E57E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1101816A2E3F64DB00A4457B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		11D2CCB42DB5141E009E57E0 /* TinyMuse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyMuse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D2CCC22DB51420009E57E0 /* TinyMuseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyMuseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D2CCCC2DB51420009E57E0 /* TinyMuseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyMuseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1101816B2E3F64DB00A4457B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		110181692E3F64DB00A4457B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1101816A2E3F64DB00A4457B /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		11D2CCAB2DB5141E009E57E0 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +111,7 @@
 				11D2CCB62DB5141E009E57E0 /* TinyMuse */,
 				11D2CCC52DB51420009E57E0 /* TinyMuseTests */,
 				11D2CCCF2DB51420009E57E0 /* TinyMuseUITests */,
+				110181692E3F64DB00A4457B /* Frameworks */,
 				11D2CCB52DB5141E009E57E0 /* Products */,
 			);
 			sourceTree = "<group>";

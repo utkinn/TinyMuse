@@ -27,25 +27,9 @@ struct PlayerView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            Button("Play", systemImage: model.isPlaying ? "pause.fill" : "play.fill") {
-                model.togglePlay()
-            }
-            .buttonStyle(.plain)
-            .labelStyle(.iconOnly)
-            .imageScale(.large)
-            .font(.title2)
-            .frame(width: 24)
-            
-            let currentTime = formatDuration(seconds: model.currentTime())
-            let totalTime = formatDuration(seconds: model.totalTime())
-            Text("\(currentTime) / \(totalTime)")
-                .fontDesign(.monospaced)
-            
-            Slider(value: $model.progress, onEditingChanged: { editing in
-                if !editing {
-                    model.setProgress(model.progress)
-                }
-            })
+            PlayButton(model: $model)
+            TimeDisplay(model: $model)
+            PlaybackBar(model: $model)
         }
         .padding()
         .frame(
@@ -62,6 +46,8 @@ struct PlayerView: View {
         )
         .navigationTitle(windowTitle)
         .task {
+            await model.load()
+
             if (playOnOpen) {
                 model.play()
             }
@@ -84,6 +70,63 @@ func formatDuration(seconds: TimeInterval?) -> String {
     return String(format: "%02d:%02d", Int(minutes), Int(secondsPart))
 }
 
+struct PlayButton: View {
+    @Binding var model: AudioPlayerModel
+    
+    var body: some View {
+        Button("Play", systemImage: model.isPlaying ? "pause.fill" : "play.fill") {
+            model.togglePlay()
+        }
+        .buttonStyle(.plain)
+        .labelStyle(.iconOnly)
+        .imageScale(.large)
+        .font(.title2)
+        .frame(width: 24)
+    }
+}
+
+struct TimeDisplay: View {
+    @Binding var model: AudioPlayerModel
+
+    var body: some View {
+        let currentTime = formatDuration(seconds: model.currentTime)
+        let totalTime = formatDuration(seconds: model.totalTime)
+        Text("\(currentTime) / \(totalTime)")
+            .fontDesign(.monospaced)
+    }
+}
+
+struct PlaybackBar: View {
+    @Binding var model: AudioPlayerModel
+    
+    @AppStorage(SettingsKey.playbackBarStyle) private var playbackBarStyle = SettingsKey.playbackBarStyleDefault
+    
+    var body: some View {
+        switch (playbackBarStyle) {
+        case .simple:
+            Slider(value: $model.progress, onEditingChanged: { editing in
+                if !editing {
+                    model.setProgress(model.progress)
+                }
+            })
+        case .waveform:
+            WaveformSlider(samples: $model.waveformSamples, model: $model, normalized: false)
+        case .waveformScaled:
+            WaveformSlider(samples: $model.waveformSamples, model: $model, normalized: true)
+        default:
+            Text("Invalid playback bar style. Please pick a different one in the settings.")
+        }
+    }
+}
+
+fileprivate let packageRootPath = URL(fileURLWithPath: #file)
+    .pathComponents
+    .dropLast(2)
+    .joined(separator: "/")
+    .dropFirst()
+
+fileprivate let testAssetsPath = packageRootPath + "/Test Assets"
+
 #Preview {
-    PlayerView(fileURL: nil)
+    PlayerView(fileURL: URL(fileURLWithPath: testAssetsPath + "/1.wav"))
 }
