@@ -132,8 +132,11 @@ class AudioPlayerModel {
             
             let length = CMBlockBufferGetDataLength(blockBuffer)
             var data = Data(count: length)
-            data.withUnsafeMutableBytes { buffer in
-                CMBlockBufferCopyDataBytes(blockBuffer, atOffset: 0, dataLength: length, destination: buffer.baseAddress!)
+            try data.withUnsafeMutableBytes { buffer in
+                let result = CMBlockBufferCopyDataBytes(blockBuffer, atOffset: 0, dataLength: length, destination: buffer.baseAddress!)
+                if result != kCMBlockBufferNoErr {
+                    throw WaveformSampleError.bufferCopyError
+                }
             }
             
             let samples = data.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) in
@@ -154,4 +157,8 @@ class AudioPlayerModel {
         
         return waveformSamples
     }
+}
+
+enum WaveformSampleError: Error {
+    case bufferCopyError
 }
