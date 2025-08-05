@@ -34,7 +34,7 @@ class AudioPlayerModel {
     func openFile(url: URL?) {
         if let url = url {
             guard url.startAccessingSecurityScopedResource() else {
-                errorText = "Can't start accessing the file security scoped resource."
+                errorText = String(localized: "Can't start accessing the file security scoped resource.")
                 return
             }
 
@@ -43,7 +43,7 @@ class AudioPlayerModel {
                 if let player = player {
                     player.delegate = audioPlayerObserver
                     guard player.prepareToPlay() else {
-                        errorText = "Can't prepare to play the file."
+                        errorText = String(localized: "Can't prepare to play the file.")
                         return
                     }
                 }

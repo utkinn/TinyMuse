@@ -13,9 +13,9 @@ struct SettingsKey {
 }
 
 public struct PlaybackBarStyle: RawRepresentable, Identifiable, Hashable {
-    public static let simple = PlaybackBarStyle(id: "simple", name: "Simple", description: "Simple slider")
-    public static let waveform = PlaybackBarStyle(id: "waveform", name: "Waveform", description: "Shows the audio waveform with amplitude representing the real volume")
-    public static let waveformScaled = PlaybackBarStyle(id: "waveformScaled", name: "Waveform (scaled)", description: "Shows the audio waveform scaled to fit the available height")
+    public static let simple = PlaybackBarStyle(id: "simple", name: String(localized: "Simple"), description: String(localized: "Simple slider"))
+    public static let waveform = PlaybackBarStyle(id: "waveform", name: String(localized: "Waveform"), description: String(localized: "Shows the audio waveform with amplitude representing the real volume"))
+    public static let waveformScaled = PlaybackBarStyle(id: "waveformScaled", name: String(localized: "Waveform (scaled)"), description: String(localized: "Shows the audio waveform scaled to fit the available height"))
     
     public static let allCases = [simple, waveform, waveformScaled]
 

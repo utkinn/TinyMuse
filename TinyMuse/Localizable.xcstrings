@@ -1,0 +1,218 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ – %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ – %2$@"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "%@ / %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ / %2$@"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "Can't prepare to play the file." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось подготовить файл к воспроизведению."
+          }
+        }
+      }
+    },
+    "Can't start accessing the file security scoped resource." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось получить безопасный доступ к файлу."
+          }
+        }
+      }
+    },
+    "Error" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ошибка"
+          }
+        }
+      }
+    },
+    "File open error" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ошибка открытия файла"
+          }
+        }
+      }
+    },
+    "Invalid playback bar style. Please pick a different one in the settings." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный стиль ползунка проигрывания. Пожалуйста, выберите другой в настройках."
+          }
+        }
+      }
+    },
+    "On opening a new file, the existing window will be reused." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новые файлы будут открываться в том же окне."
+          }
+        }
+      }
+    },
+    "Open..." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть…"
+          }
+        }
+      }
+    },
+    "Play" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Играть"
+          }
+        }
+      }
+    },
+    "Playback bar style" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стиль ползунка проигрывания"
+          }
+        }
+      }
+    },
+    "Quit after last closed window" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выход при закрытии последнего окна"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
+          }
+        }
+      }
+    },
+    "Shows the audio waveform scaled to fit the available height" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ползунок с формой волны, растянутый на всю доступную высоту"
+          }
+        }
+      }
+    },
+    "Shows the audio waveform with amplitude representing the real volume" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ползунок с формой волны, соответствующей громкости аудио"
+          }
+        }
+      }
+    },
+    "Simple" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Простой"
+          }
+        }
+      }
+    },
+    "Simple slider" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Простой ползунок"
+          }
+        }
+      }
+    },
+    "Single window only" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Режим “одно окно”"
+          }
+        }
+      }
+    },
+    "Start playing after opening a file" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начинать воспроизведение сразу после открытия файла"
+          }
+        }
+      }
+    },
+    "Waveform" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Форма волны"
+          }
+        }
+      }
+    },
+    "Waveform (scaled)" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Форма волны (растянутая)"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}
