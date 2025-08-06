@@ -29,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		1101816A2E3F64DB00A4457B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		117350712E43C9C1004827AE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		11D2CCB42DB5141E009E57E0 /* TinyMuse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyMuse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D2CCC22DB51420009E57E0 /* TinyMuseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyMuseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D2CCCC2DB51420009E57E0 /* TinyMuseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyMuseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +108,7 @@
 		11D2CCAB2DB5141E009E57E0 = {
 			isa = PBXGroup;
 			children = (
+				117350712E43C9C1004827AE /* README.md */,
 				1156F8652E3CBC0200D85400 /* Test Assets */,
 				11D2CCB62DB5141E009E57E0 /* TinyMuse */,
 				11D2CCC52DB51420009E57E0 /* TinyMuseTests */,
