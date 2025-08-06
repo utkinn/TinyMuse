@@ -79,10 +79,10 @@ class AudioPlayerModel {
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             guard let self else { return }
-            guard let player = self.player else { return }
-            self.progress = player.duration == 0 ? 0 : player.currentTime / player.duration
-            self.currentTime = player.currentTime
-            self.totalTime = player.duration
+            guard let player = player else { return }
+            progress = player.duration == 0 ? 0 : player.currentTime / player.duration
+            currentTime = player.currentTime
+            totalTime = player.duration
         }
     }
     
