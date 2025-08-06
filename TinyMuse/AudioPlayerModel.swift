@@ -25,11 +25,28 @@ class AudioPlayerModel {
     func load() async {
         if let url = fileURL {
             waveformSamples = (try? await loadWaveformSamples(from: url, samplesCount: 1000)) ?? []
+            audioName = await getTrackTitle()
         }
     }
     
     var isFileOpened: Bool { player != nil }
-    var audioName: String? { player?.url?.lastPathComponent }
+    var audioName: String?
+    
+    private func getTrackTitle() async -> String? {
+        return await getTrackTitleFromMetadata() ?? player?.url?.lastPathComponent
+    }
+
+    private func getTrackTitleFromMetadata() async -> String? {
+        guard let url = player?.url else { return nil }
+        let asset = AVURLAsset(url: url)
+        
+        guard let commonMetadata = try? await asset.load(.commonMetadata) else { return nil }
+        guard let title = try? await commonMetadata
+            .first(where: { $0.commonKey == AVMetadataKey.commonKeyTitle })?
+            .load(.stringValue) else { return nil }
+
+        return title.isEmpty ? nil : title
+    }
     
     func openFile(url: URL?) {
         if let url = url {
