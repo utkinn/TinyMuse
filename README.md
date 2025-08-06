@@ -1,11 +1,12 @@
-<center>
+<div align="center">
 
 ![App Icon](Docs/AppIcon.png)
 
-<h1>TinyMuse</h1>
-<h2>Uncomplicated audio player for macOS</h2>
+# TinyMuse
 
-</center>
+## Uncomplicated audio player for macOS
+
+</div>
 
 ![Screenshot](Docs/Screenshot.png)
 
