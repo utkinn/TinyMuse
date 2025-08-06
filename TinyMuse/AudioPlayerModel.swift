@@ -23,10 +23,10 @@ class AudioPlayerModel {
     }
     
     func load() async {
-        if let url = fileURL {
-            waveformSamples = (try? await loadWaveformSamples(from: url, samplesCount: 1000)) ?? []
-            audioName = await getTrackTitle()
-        }
+        guard let url = fileURL else { return }
+
+        waveformSamples = (try? await loadWaveformSamples(from: url, samplesCount: 1000)) ?? []
+        audioName = await getTrackTitle()
     }
     
     var isFileOpened: Bool { player != nil }
@@ -49,24 +49,24 @@ class AudioPlayerModel {
     }
     
     func openFile(url: URL?) {
-        if let url = url {
-            guard url.startAccessingSecurityScopedResource() else {
-                errorText = String(localized: "Can't start accessing the file security scoped resource.")
-                return
-            }
+        guard let url = url else { return }
 
-            do {
-                player = try AVAudioPlayer(contentsOf: url)
-                if let player = player {
-                    player.delegate = audioPlayerObserver
-                    guard player.prepareToPlay() else {
-                        errorText = String(localized: "Can't prepare to play the file.")
-                        return
-                    }
+        guard url.startAccessingSecurityScopedResource() else {
+            errorText = String(localized: "Can't start accessing the file security scoped resource.")
+            return
+        }
+
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            if let player = player {
+                player.delegate = audioPlayerObserver
+                guard player.prepareToPlay() else {
+                    errorText = String(localized: "Can't prepare to play the file.")
+                    return
                 }
-            } catch {
-                errorText = error.localizedDescription
             }
+        } catch {
+            errorText = error.localizedDescription
         }
     }
     
