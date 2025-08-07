@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+      "shouldTranslate" : false
+    },
     "%@ – %@" : {
       "localizations" : {
         "en" : {
@@ -69,6 +72,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Неверный стиль ползунка проигрывания. Пожалуйста, выберите другой в настройках."
+          }
+        }
+      }
+    },
+    "Keyboard arrow key jump duration" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжительность пропуска стрелками клавиатуры"
           }
         }
       }

@@ -174,6 +174,20 @@ class AudioPlayerModel {
         
         return waveformSamples
     }
+    
+    func skipForward(seconds: TimeInterval) {
+        guard let player = player else { return }
+        player.currentTime = min(player.currentTime + seconds, player.duration)
+        self.progress = player.duration == 0 ? 0 : player.currentTime / player.duration
+        self.currentTime = player.currentTime
+    }
+    
+    func skipBackward(seconds: TimeInterval) {
+        guard let player = player else { return }
+        player.currentTime = max(player.currentTime - seconds, 0)
+        self.progress = player.duration == 0 ? 0 : player.currentTime / player.duration
+        self.currentTime = player.currentTime
+    }
 }
 
 enum WaveformSampleError: Error {

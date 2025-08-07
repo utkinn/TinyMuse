@@ -10,6 +10,7 @@ struct PlayerView: View {
     
     @State private var model: AudioPlayerModel
     @AppStorage(SettingsKey.playOnOpen) private var playOnOpen: Bool = SettingsKey.playOnOpenDefault
+    @AppStorage(SettingsKey.keyboardArrowJumpDuration) private var keyboardArrowJumpDuration = SettingsKey.keyboardArrowJumpDurationDefault
     
     init(fileURL: URL?) {
         self.fileURL = fileURL
@@ -58,6 +59,16 @@ struct PlayerView: View {
                 window.minSize.height = PlayerView.windowHeight
                 window.maxSize.height = PlayerView.windowHeight
             }
+        }
+        .focusable()
+        .focusEffectDisabled()
+        .onKeyPress(.leftArrow) {
+            model.skipBackward(seconds: keyboardArrowJumpDuration)
+            return .handled
+        }
+        .onKeyPress(.rightArrow) {
+            model.skipForward(seconds: keyboardArrowJumpDuration)
+            return .handled
         }
     }
 }

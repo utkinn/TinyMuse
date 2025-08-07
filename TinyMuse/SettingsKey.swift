@@ -1,3 +1,5 @@
+import Foundation
+
 struct SettingsKey {
     static let playOnOpen = "playOnOpen"
     static let playOnOpenDefault = true
@@ -10,6 +12,9 @@ struct SettingsKey {
     
     static let playbackBarStyle = "playbackBarStyle"
     static let playbackBarStyleDefault = PlaybackBarStyle.waveformScaled
+    
+    static let keyboardArrowJumpDuration = "keyboardArrowJumpDuration"
+    static let keyboardArrowJumpDurationDefault: TimeInterval = 15
 }
 
 public struct PlaybackBarStyle: RawRepresentable, Identifiable, Hashable {

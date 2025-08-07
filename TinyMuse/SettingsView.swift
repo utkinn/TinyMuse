@@ -5,6 +5,7 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.singleWindow) private var singleWindow = SettingsKey.singleWindowDefault
     @AppStorage(SettingsKey.quitAfterLastClosedWindow) private var quitAfterLastClosedWindow = SettingsKey.quitAfterLastClosedWindowDefault
     @AppStorage(SettingsKey.playbackBarStyle) private var playbackBarStyle = SettingsKey.playbackBarStyleDefault
+    @AppStorage(SettingsKey.keyboardArrowJumpDuration) private var keyboardArrowJumpDuration = SettingsKey.keyboardArrowJumpDurationDefault
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,6 +22,20 @@ struct SettingsView: View {
                 ForEach(PlaybackBarStyle.allCases) { style in
                     Text("\(style.name) – \(style.description)")
                         .tag(style)
+                }
+            }
+            
+            Stepper(value: $keyboardArrowJumpDuration, in: 1...60) {
+                LabeledContent {
+                    TextField("", value: $keyboardArrowJumpDuration, format: .number)
+                        .onChange(of: keyboardArrowJumpDuration) { old, new in
+                            if !(1...60).contains(new) {
+                                keyboardArrowJumpDuration = old
+                                NSSound.beep()
+                            }
+                        }
+                } label: {
+                    Text("Keyboard arrow key jump duration")
                 }
             }
         }
